@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Item1",
+        "date": "2024-02-19",
+        "weather": "cloudy"
+    },
+    {
+        "name": "Item2",
+        "date": "2024-02-20",
+        "weather": "sunny"
+    },
+    {
+        "name": "Item3",
+        "date": "2024-02-21",
+        "weather": "rainy"
+    }
+]

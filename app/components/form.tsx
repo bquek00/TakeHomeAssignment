@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { AppContext } from '@/app/contexts/themeContext';
 
 // Interface defining the props for the Form component
 interface FormProps {
@@ -11,6 +13,8 @@ const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) =>
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [minDate, setMinDate] = useState('');
+    const { data, setData } = useContext(AppContext); // Destructure data from AppContext
+
 
     useEffect(() => 
     {
@@ -21,8 +25,13 @@ const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) =>
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => 
     {
         event.preventDefault(); // Prevents the default form submission behavior
+        // Create a new item object
+        const newItem = { name, date, weather: 'Not Specified' }; // Assuming 'weather' is a required field, you can set a default value or modify this part to include user input for weather.
+
+        // Update the AppContext data state with the new item
+        setData([...data, newItem]);
         console.log('Submitting', { name, date }); // For demonstration purposes
-        //setVisibility(false);
+        setVisibility(false);
 
     // If you want to reset the form fields after submission, you can do it here:
     // setName('');
