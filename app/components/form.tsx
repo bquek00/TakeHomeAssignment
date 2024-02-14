@@ -11,7 +11,7 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) => 
 {
     const [name, setName] = useState('');
-    const [date, setDate] = useState('');
+    const [partner, setPartner] = useState('');
     const [minDate, setMinDate] = useState('');
     const { data, setData } = useContext(AppContext); // Destructure data from AppContext
 
@@ -22,15 +22,45 @@ const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) =>
         setMinDate(today);
     }, []);
 
+    async function calculate(name: String, partner: String) 
+    {
+        console.log('Marking');
+        try 
+        {
+            const response = await fetch(`/api/calculate?name=${name}&partner=${partner}`); // Replace 'your-endpoint' with the actual endpoint URL
+            if (!response.ok) 
+            {
+                throw new Error(`Request failed with status: ${response.status}`);
+            }
+          
+            const result = await response.json();
+            console.log(result);
+            // Create a new item object
+            const newItem = { name, partner, chances: result.percentage.concat('%'), comment: result.result}; 
+
+            setData([...data, newItem]);
+        }
+        catch (error) 
+        {
+            console.error('Error fetching data:', error);
+            throw error;
+        }
+    }
+
+    const handleClose = () => 
+    {
+        setVisibility(false); // Hide the modal
+        // Reset form values
+        setName('');
+        setPartner('');
+    };
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => 
     {
-        event.preventDefault(); // Prevents the default form submission behavior
-        // Create a new item object
-        const newItem = { name, date, weather: 'Not Specified' }; // Assuming 'weather' is a required field, you can set a default value or modify this part to include user input for weather.
 
-        // Update the AppContext data state with the new item
-        setData([...data, newItem]);
-        console.log('Submitting', { name, date }); // For demonstration purposes
+        
+        event.preventDefault(); // Prevents the default form submission behavior
+        calculate(name, partner);
         setVisibility(false);
 
     // If you want to reset the form fields after submission, you can do it here:
@@ -40,14 +70,17 @@ const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) =>
 
     return (
         <div className={`absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center ${isVisible ? 'visible' : 'invisible'}`}>
-            <form className="max-w-md mx-auto bg-white w-4/5 p-4 border-neutral-950 dark:border-slate-300 border-2 rounded-md" onSubmit={handleSubmit}>
+            <form className="relative pb5 max-w-md mx-auto bg-white w-4/5 p-4 border-neutral-950 dark:border-slate-300 border-2 rounded-md" onSubmit={handleSubmit}>
+                <button type="button" onClick={handleClose} className="absolute top-0 right-0 m-2 text-gray-400 hover:text-gray-600">
+                    <span className="text-2xl">&times;</span>
+                </button>
                 <div className="relative z-0 w-full mb-5 group">
                     <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-                    <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Event Name</label>
+                    <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Your Name</label>
                 </div>
                 <div className="relative z-0 w-full mb-5 group">
-                    <label className="mr-2" htmlFor="date">Date:</label>
-                    <input type="date" id="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} min={minDate} required />
+                    <input type="text" name="partner" id="partner" value={partner} onChange={(e) => setPartner(e.target.value)} className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                    <label htmlFor="partner" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Co-Worker Name</label>
                 </div>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
             </form>

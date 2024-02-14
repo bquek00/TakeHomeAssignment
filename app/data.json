@@ -1,17 +1,14 @@
 [
     {
-        "name": "Item1",
-        "date": "2024-02-19",
-        "weather": "cloudy"
+        "name": "Brahms",
+        "partner": "Clara",
+        "chances": "10%",
+        "comment": "No one feels another's grief."
     },
     {
-        "name": "Item2",
-        "date": "2024-02-20",
-        "weather": "sunny"
-    },
-    {
-        "name": "Item3",
-        "date": "2024-02-21",
-        "weather": "rainy"
+        "name": "Schubert",
+        "partner": "Maria",
+        "chances": "64%",
+        "comment": "All the best!"
     }
 ]
