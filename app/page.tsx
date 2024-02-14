@@ -1,11 +1,20 @@
 'use client';
 import Table from '@/app/components/table';
 import { AppContext } from '@/app/contexts/themeContext';
-import { createContext, useContext} from 'react';
+import { createContext, useContext, useState} from 'react';
+import Form from '@/app/components/form';
 
 export default function Home() 
 {
     const {darkMode, setDarkMode} = useContext(AppContext);
+
+    const [showForm, setShowForm] = useState(true);
+
+    const toggleFormVisibility = (visibility: boolean) => 
+    {
+        setShowForm(visibility);
+    };
+
     const toggleDarkMode = () => 
     {
         setDarkMode(!darkMode);
@@ -23,6 +32,8 @@ export default function Home()
             >
                 Toggle Dark Mode
             </button>
+
+            <Form isVisible={showForm} setVisibility={toggleFormVisibility}/>
 
         </div>
         
