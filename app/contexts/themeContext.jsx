@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useState, useEffect} from 'react';
-import jsonData from '@/app/data.json'; // Adjust the path as necessary
+import jsonData from '@/app/data.json'; // Path to JSON
 
 export const AppContext = createContext();
 
@@ -22,7 +22,7 @@ export function AppProvider({ children})
     {
         setData(jsonData); // Set the imported JSON data into state
         console.log(jsonData);
-        setMount(true); // This will set mount to true when the component mounts
+        setMount(true); // Set mount to true when the component mounts
     }, []);
 
     useEffect(() => 

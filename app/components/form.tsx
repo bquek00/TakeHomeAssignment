@@ -3,71 +3,60 @@ import { useContext } from 'react';
 import { AppContext } from '@/app/contexts/themeContext';
 import Loader from '@/app/components/loader';
 
-// Interface defining the props for the Form component
+// Props definition for the Form component.
 interface FormProps {
-  isVisible: boolean;
-  setVisibility: (isVisible: boolean) => void;
-}
-
+    isVisible: boolean;
+    setVisibility: (isVisible: boolean) => void;
+  }
+  
+// Main Form component.
 const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) => 
 {
     const [name, setName] = useState('');
     const [partner, setPartner] = useState('');
-    const [minDate, setMinDate] = useState('');
     const [loading, setLoading] = useState(false);
-    const { data, setData } = useContext(AppContext); // Destructure data from AppContext
-
-
-    useEffect(() => 
-    {
-        const today = new Date().toISOString().split('T')[0];
-        setMinDate(today);
-    }, []);
-
+    const { data, setData } = useContext(AppContext);
+  
+    // Function to calculate compatibility between two names.
     async function calculate(name: String, partner: String) 
     {
         setLoading(true);
         try 
         {
-            const response = await fetch(`/api/calculate?name=${name}&partner=${partner}`); // Replace 'your-endpoint' with the actual endpoint URL
+            const response = await fetch(`/api/calculate?name=${name}&partner=${partner}`);
             if (!response.ok) 
             {
                 throw new Error(`Request failed with status: ${response.status}`);
             }
-          
+            
             const result = await response.json();
-            console.log(result);
-            // Create a new item object
-            const newItem = { name, partner, chances: result.percentage.concat('%'), comment: result.result}; 
-
+            const newItem = { name, partner, chances: result.percentage.concat('%'), comment: result.result };
             setData([...data, newItem]);
         }
         catch (error) 
         {
             console.error('Error fetching data:', error);
-            throw error;
         }
-        setLoading(false);
+        finally 
+        {
+            setLoading(false);
+        }
     }
-
+  
+    // Function to close the form modal and reset form fields.
     const handleClose = () => 
     {
-        setVisibility(false); // Hide the modal
-        // Reset form values
+        setVisibility(false);
         setName('');
         setPartner('');
     };
-
+  
+    // Function to handle form submission.
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => 
     {
-
-        
-        event.preventDefault(); // Prevents the default form submission behavior
+        event.preventDefault();
         calculate(name, partner);
-        setVisibility(false);
-
-        setName('');
-        setPartner('');
+        handleClose();
     };
 
     return (
