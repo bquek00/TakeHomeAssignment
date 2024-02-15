@@ -6,7 +6,7 @@ import { AppProvider } from '@/app/contexts/themeContext';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Haruka',
+    title: 'Liebestraum',
     description: 'Missing things that never were but should have been',
     icons: {
         icon: 'music.png',
