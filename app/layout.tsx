@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
     title: 'Haruka',
     description: 'Missing things that never were but should have been',
+    icons: {
+        icon: 'music.png',
+    },
 };
 
 export default function RootLayout({
