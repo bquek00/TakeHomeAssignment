@@ -6,7 +6,7 @@ export default function Table()
     const { data } = useContext(AppContext); // Destructure data from AppContext
 
     return (
-        <div className="relative overflow-x-auto sm:rounded-lg flex items-center justify-center">
+        <div className="relative sm:rounded-lg flex items-center justify-center">
             <table className="shadow-md w-4/5 sm:w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-pink-600 uppercase bg-pink-100 dark:bg-gray-700 dark:text-pink-400 rounded-t-lg">
                     <tr>
