@@ -72,7 +72,7 @@ const Form: React.FC<FormProps> = ({ isVisible, setVisibility }) =>
 
     return (
         <div className={`absolute top-0 left-0 bottom-0 right-0 flex items-center justify-center ${isVisible ? 'visible' : 'invisible'}`}>
-            <form className="relative pb5 max-w-md mx-auto bg-white dark:bg-gray-700 w-4/5 p-4 border-neutral-950 dark:border-slate-300 border-2 rounded-md" onSubmit={handleSubmit}>
+            <form className="relative pb5 mx-auto bg-white dark:bg-gray-700 w-4/5 p-4 border-neutral-950 dark:border-slate-300 border-2 rounded-md" onSubmit={handleSubmit}>
                 <button type="button" onClick={handleClose} className="absolute top-0 right-0 m-2 text-gray-400 hover:text-gray-600">
                     <span className="text-2xl">&times;</span>
                 </button>
