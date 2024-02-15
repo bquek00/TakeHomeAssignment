@@ -6,7 +6,7 @@ This is a Love Compatibility Calculator where you can enter your name and the na
 
 ### Core Tasks:
 1. **Display JSON Data**: Implemented a feature to display JSON data in a table format on a webpage.
-2. **Add Item Feature**: 'Add Item' button that opens a form to allow users to input new data. Ensure this form has proper validation.
+2. **Add Item Feature**: 'Add Item' button that opens a form to allow users to input new data with validation. 
 3. **Data Submission**: Upon form submission, the new data is added to the existing table.
 4. **Theme Toggle**: Implemented a feature to toggle the table's appearance between light mode and dark mode, with the user's choice being cached and persisted across sessions.
 
