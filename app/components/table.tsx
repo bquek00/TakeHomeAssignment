@@ -7,7 +7,7 @@ export default function Table()
 
     return (
         <div className="relative sm:rounded-lg flex items-center justify-center">
-            <table className="shadow-md w-4/5 sm:w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table className="shadow-md mx-4 sm:w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-pink-600 uppercase bg-pink-100 dark:bg-gray-700 dark:text-pink-400 rounded-t-lg">
                     <tr>
                         <th scope="col" className="px-2 py-1 sm:px-6 sm:py-3 rounded-tl-lg">
